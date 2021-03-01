@@ -65,13 +65,23 @@ console.log("userRes.data");
       }
 
       //get products
-      const pRes = await axios.get('/api/products');
-      console.log(pRes.data);
-      dispatch({
+//       const pRes = await axios.get('/api/products');
+//       console.log(pRes.data);
+//       dispatch({
+//           type: "SET_PRODUCTS",
+//           products: pRes.data
+//         });
+    
+      //get products
+      await axios.get('/api/products')
+      .then(pRes => {
+        console.log(pRes.data);
+        dispatch({
           type: "SET_PRODUCTS",
           products: pRes.data
         });
-
+      })
+      
       //get purchased items
       await axios.get('/api/purchases/'+userEmail, { headers: {"x-auth-token": token} })
       .then(purchasesRes => {
